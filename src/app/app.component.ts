@@ -5,7 +5,7 @@ import { CommentsComponent } from './components/comments/comments.component';
   selector: 'app-root',
   standalone: true,
   imports: [CommentsComponent],
-  template: `<app-comments />`,
+  templateUrl: `./app.component.html`,
   styleUrl: './app.component.css',
 })
 export class AppComponent {}
