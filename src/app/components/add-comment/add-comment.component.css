@@ -1,6 +1,5 @@
 textarea {
-  resize: vertical;
-  width: 50%;
+  resize: none;
   padding: 10px;
   line-height: 1.5;
   min-height: 100px;
@@ -17,4 +16,20 @@ hr {
 .text-input {
   display: flex;
   flex-direction: column;
+  width: 50%;
+}
+
+button {
+  height: 25px;
+  width: 60px;
+  align-self: end;
+  margin-top: 20px;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.add-comment-section {
+  margin-top: 50px;
 }
