@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { CommentsComponent } from './comments/comments.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
+  imports: [CommentsComponent],
+  template: `<app-comments />`,
   styleUrl: './app.component.css',
 })
-export class AppComponent {
-  title = 'limble-take-home-project';
-}
+export class AppComponent {}
