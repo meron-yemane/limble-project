@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommentsComponent } from './comments/comments.component';
+import { CommentsComponent } from './components/comments/comments.component';
 
 @Component({
   selector: 'app-root',
