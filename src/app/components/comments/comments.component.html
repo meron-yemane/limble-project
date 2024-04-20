@@ -1,5 +1,7 @@
 <section>
   <h2>Comments:</h2>
-  <app-individual-comment [comment]="comments[0]"/>
+  @for (comment of comments; track comment.id; let isLastComment = $last) {
+    <app-individual-comment [comment]="comment" [isLastComment] ="isLastComment"/>
+  }
   <app-add-comment />
 </section>

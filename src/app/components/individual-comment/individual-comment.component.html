@@ -4,8 +4,11 @@
     <div class="text">{{comment.text}}</div>
   </div>
   <div class="meta-data">
-    <div>{{comment.name}}&nbsp;&mdash;&nbsp;</div>
+    <div>{{comment.userName}}&nbsp;&mdash;&nbsp;</div>
     <div>{{comment.date}}&nbsp;</div>
     <div>{{comment.time}}</div>
   </div>
 </section>
+@if (!isLastComment) {
+  <hr />
+}

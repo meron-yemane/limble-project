@@ -4,7 +4,9 @@ export interface User {
 }
 
 export interface Comment {
-  name: string;
+  id: number;
+  userID: number;
+  userName: string;
   date: string;
   text: string;
   time: string;

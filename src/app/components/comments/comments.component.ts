@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { IndividualCommentComponent } from '../individual-comment/individual-comment.component';
 import { AddCommentComponent } from '../add-comment/add-comment.component';
 import { Comment } from '../../types';
+import { CommentService } from '../../services/comment/comment.service';
 
 @Component({
   selector: 'app-comments',
@@ -11,12 +12,12 @@ import { Comment } from '../../types';
   styleUrl: './comments.component.css',
 })
 export class CommentsComponent {
-  comments: Comment[] = [
-    {
-      name: 'Meron',
-      date: '01/12/24',
-      text: 'My first comment yeaaaaaaayyyyyyyy',
-      time: '12:00AM',
-    },
-  ];
+  commentService = inject(CommentService);
+  comments: Comment[] = [];
+
+  constructor() {
+    this.commentService.getCommentData().then((commentData) => {
+      this.comments = commentData;
+    });
+  }
 }

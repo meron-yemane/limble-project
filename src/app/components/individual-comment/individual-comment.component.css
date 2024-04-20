@@ -16,3 +16,10 @@ section {
   margin-left: 10px;
   line-height: 16px;
 }
+
+hr {
+  margin: 15px 0;
+  border: none;
+  height: 1px;
+  background-color: lightgrey;
+}

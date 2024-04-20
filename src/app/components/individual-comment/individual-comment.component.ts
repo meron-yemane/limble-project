@@ -16,4 +16,6 @@ export class IndividualCommentComponent {
     required: true,
   })
   comment!: Comment;
+
+  @Input() isLastComment!: boolean;
 }
