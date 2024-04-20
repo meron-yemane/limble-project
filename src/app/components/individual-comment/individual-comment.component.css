@@ -1,0 +1,18 @@
+section {
+  display: flex;
+  justify-content: space-between;
+}
+
+.meta-data {
+  display: flex;
+  color: lightslategrey;
+}
+
+.text-container {
+  display: flex;
+}
+
+.text {
+  margin-left: 10px;
+  line-height: 16px;
+}

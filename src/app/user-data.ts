@@ -1,8 +1,3 @@
-export interface User {
-  userID: number;
-  name: string;
-}
-
 export const userData = [
   { userID: 1, name: 'Kevin' },
   { userID: 2, name: 'Jeff' },
