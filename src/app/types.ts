@@ -7,7 +7,6 @@ export interface Comment {
   id: number;
   userID: number;
   userName: string;
-  date: string;
-  text: string;
-  time: string;
+  date: Date;
+  body: string;
 }

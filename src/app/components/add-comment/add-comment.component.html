@@ -2,10 +2,10 @@
   <hr />
   <h3>Add Comment</h3>
   <hr />
-  <section class="text-input">
+  <form name="commentForm" [formGroup]="commentForm" (ngSubmit)="handleCommentFormSubmit()" class="form-container">
     <label for="comment">Please enter in a comment.</label>
-    <textarea id="comment">
+    <textarea id="comment" formControlName="body">
     </textarea>
-    <button>Submit</button>
-  </section>
+    <button type="submit">Submit</button>
+  </form>
 </section>
