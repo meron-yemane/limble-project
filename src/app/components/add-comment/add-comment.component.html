@@ -4,7 +4,7 @@
   <hr />
   <form name="commentForm" [formGroup]="commentForm" (ngSubmit)="handleCommentFormSubmit()" class="form-container">
     <label for="comment">Please enter in a comment.</label>
-    <textarea id="comment" formControlName="body">
+    <textarea id="comment" formControlName="body" (keydown)="displayTagUserInCommentPopup($event)">
     </textarea>
     <button type="submit">Submit</button>
   </form>

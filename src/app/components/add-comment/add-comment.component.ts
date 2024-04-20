@@ -31,4 +31,9 @@ export class AddCommentComponent {
     };
     this.commentService.postComment(comment);
   }
+
+  displayTagUserInCommentPopup($event: KeyboardEvent) {
+    if ($event.key === '@') {
+    }
+  }
 }
