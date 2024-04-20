@@ -7,16 +7,19 @@ import {
 } from '@angular/forms';
 import { CommentService } from '../../services/comment/comment.service';
 import { Comment } from '../../types';
+import { TagUserModalService } from '../../services/tag-user-modal/tag-user-modal.service';
+import { TagUserModalComponent } from '../tag-user-modal/tag-user-modal.component';
 
 @Component({
   selector: 'app-add-comment',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, TagUserModalComponent],
   templateUrl: './add-comment.component.html',
   styleUrl: './add-comment.component.css',
 })
 export class AddCommentComponent {
   commentService = inject(CommentService);
+  tagUserModalService = inject(TagUserModalService);
   commentForm = new FormGroup({
     body: new FormControl('', Validators.required),
   });
@@ -30,10 +33,13 @@ export class AddCommentComponent {
       body: this.commentForm.value.body!,
     };
     this.commentService.postComment(comment);
+    this.commentForm.reset();
   }
 
-  displayTagUserInCommentPopup($event: KeyboardEvent) {
+  displayTagUserModal($event: KeyboardEvent) {
     if ($event.key === '@') {
+      console.log('am I here');
+      this.tagUserModalService.openModal('modal1');
     }
   }
 }

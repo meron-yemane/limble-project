@@ -1,0 +1,7 @@
+app-tag-user-modal {
+  display: none;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
