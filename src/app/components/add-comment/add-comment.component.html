@@ -5,7 +5,13 @@
   <form name="commentForm" [formGroup]="commentForm" (ngSubmit)="handleCommentFormSubmit()" class="form-container">
     <label for="comment">Please enter in a comment.</label>
     <app-tag-user-modal id="modal1">
-      <p>we made it</p>
+      <ul class="tag-user-modal-container">
+        <li><a href="#">Item 1</a></li>
+        <li><a href="#">Item 2</a></li>
+        <li><a href="#">Item 3</a></li>
+        <li><a href="#">Item 4</a></li>
+        <li><a href="#">Item 4</a></li>
+      </ul>
     </app-tag-user-modal>
     <textarea id="comment" formControlName="body" (keydown)="displayTagUserModal($event)">
     </textarea>
