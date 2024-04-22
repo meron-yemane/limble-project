@@ -75,13 +75,16 @@ export class AddCommentComponent {
   }
 
   onKeydown($event: KeyboardEvent, index: number, user: User) {
-    if ($event.key === 'ArrowDown') {
-      this.focusElement(index + 1);
-    } else if ($event.key === 'ArrowUp') {
-      this.focusElement(index - 1);
-    } else if ($event.key === 'Enter') {
-      this.addTaggedUserToComment(user);
-    }
+    // we need to call setTimeout here to append the callback function to the end of the event queue to ensure 'Enter' keydown event does not jump to next line in textarea
+    setTimeout(() => {
+      if ($event.key === 'ArrowDown') {
+        this.focusElement(index + 1);
+      } else if ($event.key === 'ArrowUp') {
+        this.focusElement(index - 1);
+      } else if ($event.key === 'Enter') {
+        this.addTaggedUserToComment(user);
+      }
+    });
   }
 
   focusElement(index: number) {

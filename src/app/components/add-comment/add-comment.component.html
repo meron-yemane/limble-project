@@ -11,6 +11,6 @@
     </app-tag-user-modal>
     <textarea #commentTxt id="comment" formControlName="body" (keydown)="displayTagUserModal($event)">
     </textarea>
-    <button type="submit">Submit</button>
+    <button type="submit" [disabled]="this.commentForm.value.body === ''">Submit</button>
   </form>
 </section>
