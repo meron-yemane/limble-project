@@ -1,4 +1,11 @@
-import { Component, inject } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  inject,
+  QueryList,
+  ViewChild,
+  ViewChildren,
+} from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -6,9 +13,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { CommentService } from '../../services/comment/comment.service';
-import { Comment } from '../../types';
+import { Comment, User } from '../../types';
 import { TagUserModalService } from '../../services/tag-user-modal/tag-user-modal.service';
 import { TagUserModalComponent } from '../tag-user-modal/tag-user-modal.component';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'app-add-comment',
@@ -18,11 +26,31 @@ import { TagUserModalComponent } from '../tag-user-modal/tag-user-modal.componen
   styleUrl: './add-comment.component.css',
 })
 export class AddCommentComponent {
+  @ViewChild('commentTxt') commentTxt!: ElementRef;
+  @ViewChildren('tagOption') tagOptions!: QueryList<any>;
   commentService = inject(CommentService);
   tagUserModalService = inject(TagUserModalService);
+  userService = inject(UserService);
   commentForm = new FormGroup({
     body: new FormControl('', Validators.required),
   });
+  users: User[] = [];
+
+  constructor() {
+    this.userService.getUserData().then((userData) => {
+      this.users = userData;
+    });
+  }
+
+  addTaggedUserToComment(user: User) {
+    const currentCommentBody = this.commentForm.value.body;
+    const updatedCommentBody = `${currentCommentBody}${user.name}`;
+    this.commentForm.setValue({
+      body: updatedCommentBody,
+    });
+    this.tagUserModalService.close();
+    this.commentTxt.nativeElement.focus();
+  }
 
   handleCommentFormSubmit() {
     const comment: Comment = {
@@ -37,9 +65,28 @@ export class AddCommentComponent {
   }
 
   displayTagUserModal($event: KeyboardEvent) {
-    if ($event.key === '@') {
-      console.log('am I here');
-      this.tagUserModalService.openModal('modal1');
+    // we need to call setTimeout here to append the callback function to the end of the event queue to ensure textarea dom element adds '@'
+    setTimeout(() => {
+      if ($event.key === '@') {
+        this.tagUserModalService.open('modal1');
+        this.tagOptions.toArray()[0].nativeElement.focus();
+      }
+    });
+  }
+
+  onKeydown($event: KeyboardEvent, index: number, user: User) {
+    if ($event.key === 'ArrowDown') {
+      this.focusElement(index + 1);
+    } else if ($event.key === 'ArrowUp') {
+      this.focusElement(index - 1);
+    } else if ($event.key === 'Enter') {
+      this.addTaggedUserToComment(user);
+    }
+  }
+
+  focusElement(index: number) {
+    if (index >= 0 && index < this.users.length) {
+      this.tagOptions.toArray()[index].nativeElement.focus();
     }
   }
 }

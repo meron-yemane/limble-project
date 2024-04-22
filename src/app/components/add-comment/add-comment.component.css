@@ -37,20 +37,3 @@ button:hover {
 .add-comment-section {
   margin-top: 50px;
 }
-
-.tag-user-modal-container {
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
-}
-
-.tag-user-modal-container li {
-  font-size: 15px;
-  padding: 10px 10px;
-  border-top: solid 1px rgb(202, 202, 202);
-}
-
-a {
-  text-decoration: none;
-  color: black;
-}

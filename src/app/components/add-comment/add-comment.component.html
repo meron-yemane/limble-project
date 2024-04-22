@@ -5,15 +5,11 @@
   <form name="commentForm" [formGroup]="commentForm" (ngSubmit)="handleCommentFormSubmit()" class="form-container">
     <label for="comment">Please enter in a comment.</label>
     <app-tag-user-modal id="modal1">
-      <ul class="tag-user-modal-container">
-        <li><a href="#">Item 1</a></li>
-        <li><a href="#">Item 2</a></li>
-        <li><a href="#">Item 3</a></li>
-        <li><a href="#">Item 4</a></li>
-        <li><a href="#">Item 4</a></li>
-      </ul>
+        @for (user of users; track user.userID; let idx = $index) {
+          <li #tagOption id="index-{{idx}}" (keydown)="onKeydown($event, idx, user)" tabindex="0" (click)="addTaggedUserToComment(user)">{{user.name}}</li>
+        }
     </app-tag-user-modal>
-    <textarea id="comment" formControlName="body" (keydown)="displayTagUserModal($event)">
+    <textarea #commentTxt id="comment" formControlName="body" (keydown)="displayTagUserModal($event)">
     </textarea>
     <button type="submit">Submit</button>
   </form>

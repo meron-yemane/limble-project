@@ -1,20 +1,33 @@
 app-tag-user-modal {
   display: none;
   position: relative;
-}
 
-.modal-body {
-  z-index: 100000;
-  overflow: auto;
-  height: 160px;
-  position: absolute;
-  border: 1px solid lightgrey;
-  border-radius: 3px;
-  background-color: white;
-  width: 300px;
-  bottom: 0;
+  .modal-container {
+    z-index: 100000;
+    overflow: auto;
+    height: 160px;
+    position: absolute;
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+    background-color: white;
+    width: 300px;
+    bottom: 0;
+  }
+
+  .modal-body {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+
+  .modal-body li {
+    font-size: 15px;
+    padding: 10px 10px;
+    border-top: solid 1px rgb(202, 202, 202);
+  }
 }
 
 body.modal-open {
   overflow: hidden;
 }
+

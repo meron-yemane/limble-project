@@ -1,6 +1,7 @@
 import {
   Component,
   ElementRef,
+  HostListener,
   inject,
   Input,
   OnDestroy,
@@ -24,11 +25,8 @@ export class TagUserModalComponent implements OnInit, OnDestroy {
   id?: string;
   tagUserModalService = inject(TagUserModalService);
   isOpen = false;
-  private modalElement: ElementRef;
-
-  constructor(private element: ElementRef) {
-    this.modalElement = element;
-  }
+  modalElement = inject<ElementRef<HTMLElement>>(ElementRef);
+  constructor() {}
 
   ngOnInit() {
     this.tagUserModalService.add(this);
@@ -48,5 +46,12 @@ export class TagUserModalComponent implements OnInit, OnDestroy {
     this.modalElement.nativeElement.style.display = 'none';
     document.body.classList.remove('modal-open');
     this.isOpen = false;
+  }
+  @HostListener('document:click', ['$event'])
+  handleClick($event: MouseEvent) {
+    const target = $event.target as HTMLElement;
+    if (!target.parentElement!.classList.contains('modal-body')) {
+      this.close();
+    }
   }
 }

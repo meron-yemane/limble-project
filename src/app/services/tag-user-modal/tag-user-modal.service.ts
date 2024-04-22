@@ -23,7 +23,7 @@ export class TagUserModalService {
     this.modals = this.modals.filter((modal) => modal.id !== modalToRemove.id);
   }
 
-  openModal(id: string) {
+  open(id: string) {
     const modalToOpen = this.modals.find((modal) => modal.id === id);
     if (!modalToOpen) throw new Error(`modal with id ${id} not found`);
     modalToOpen.open();
