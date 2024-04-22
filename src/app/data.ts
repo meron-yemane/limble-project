@@ -5,6 +5,9 @@ export const userData: User[] = [
   { userID: 2, name: 'Jeff' },
   { userID: 3, name: 'Bryan' },
   { userID: 4, name: 'Gabbey' },
+  { userID: 4, name: 'Landon' },
+  { userID: 4, name: 'Michael' },
+  { userID: 4, name: 'Benjamin' },
 ];
 
 // TODO: refactor such that commentData only returns userID

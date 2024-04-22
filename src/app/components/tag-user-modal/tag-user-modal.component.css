@@ -12,6 +12,7 @@ app-tag-user-modal {
     background-color: white;
     width: 300px;
     bottom: 0;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
   }
 
   .modal-body {
@@ -24,6 +25,12 @@ app-tag-user-modal {
     font-size: 15px;
     padding: 10px 10px;
     border-top: solid 1px rgb(202, 202, 202);
+  }
+
+  .modal-body li:hover {
+    cursor: pointer;
+    /*TODO: browser specific, need to investigate focus outline behavior on other browsers*/
+    outline: 5px auto rgb(94, 158, 214);
   }
 }
 
