@@ -13,6 +13,7 @@ app-tag-user-modal {
     width: 300px;
     bottom: 0;
     box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
+    padding: 1px;
   }
 
   .modal-body {
@@ -29,8 +30,9 @@ app-tag-user-modal {
 
   .modal-body li:hover {
     cursor: pointer;
-    /*TODO: browser specific, need to investigate focus outline behavior on other browsers*/
-    outline: 5px auto rgb(94, 158, 214);
+    /*TODO: browser specific, need to investigate focus outline behavior on other browsers; overwrite only occurs for chrome*/
+    outline: 5px auto Highlight;
+    outline: 5px auto -webkit-focus-ring-color;
   }
 }
 

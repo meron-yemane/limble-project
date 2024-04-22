@@ -2,26 +2,31 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.4.
 
-## Development server
+This was an exciting opportunity to delve back into Angular and learn how the community at large/framework has grown! I took the deliverables literally and decided to create the Angular app without any external
+dependencies besides ng-icons. It wasn't until I was well into the project that I realized I could've employed the observer pattern
+using RxJS for event handling. If allowed more time, this would be the first order of improvement.     
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Code scaffolding
+![Alt Text](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNDgyYjM2Mm93NmVqYzRwbHR1NnkxNmQwamY5b2FsNHV2OXFoN3U5NyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/E3qpuvFL7AreMdXssJ/giphy.gif##)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## How to run locally
 
-## Build
+ - Clone down this repo
+ - Run `npm install`
+ - Run `ng serve`
+ - Navigate to `http://localhost:4200/`. The application will automatically reload.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Improvements if time allotted
 
-## Running unit tests
+  - Incorporate RxJs observable pattern
+  - Create generic modal service if a second type of modal is requested and add an interface for classes to implement
+  - Move `onKeydown()` functionality from `AddCommentComponent` to `TagUserModalComponent`
+  - Implement fuzzy search algorithm for modal component
+  - Within modal component, list users in descending order based on an interactivity metric between users in application 
+  - Add unit tests for components and services -> one of main advantages of storing application logic inside services is relative ease with testing
+  - Create utils file where we can store the unique modal ids so we’re not passing strings around application
+  - Disable document interaction when modal is open
+  - Add functionality to add tagged users in middle and beginning of text
+  - Accessing DOM or native element directly is typically bad practice; investigate `ngIf` structural directive as possible alternative solution
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.

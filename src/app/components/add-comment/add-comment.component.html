@@ -9,8 +9,8 @@
           <li #tagOption id="index-{{idx}}" (keydown)="onKeydown($event, idx, user)" tabindex="0" (click)="addTaggedUserToComment(user)">{{user.name}}</li>
         }
     </app-tag-user-modal>
-    <textarea #commentTxt id="comment" formControlName="body" (keydown)="displayTagUserModal($event)">
+    <textarea #commentTxt id="comment" formControlName="body" (keydown.enter)="this.commentForm.value.body?.trim()?.length !== 0 && handleCommentFormSubmit()" (keydown)="displayTagUserModal($event)">
     </textarea>
-    <button type="submit" [disabled]="this.commentForm.value.body === ''">Submit</button>
+    <button type="submit" [disabled]="this.commentForm.value.body?.trim()?.length === 0">Submit</button>
   </form>
 </section>
