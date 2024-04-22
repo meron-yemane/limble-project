@@ -9,7 +9,7 @@ export class UserService {
   private userData: User[] = userData;
   constructor() {}
 
-  getUserData(): Promise<User[]> {
+  async getUserData(): Promise<User[]> {
     return new Promise((resolve) => {
       resolve(this.userData);
     });
