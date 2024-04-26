@@ -17,13 +17,13 @@ export const commentData: Comment[] = [
     id: 1,
     userID: 2,
     date: new Date(),
-    body: 'Had to delay due to an audit',
+    textInput: 'Had to delay due to an audit',
   },
   {
     userName: 'Bryan',
     id: 2,
     userID: 3,
     date: new Date(),
-    body: 'Audit completed, progress resumed',
+    textInput: 'Audit completed, progress resumed',
   },
 ];

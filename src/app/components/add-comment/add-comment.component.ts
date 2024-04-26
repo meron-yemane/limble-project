@@ -1,55 +1,73 @@
 import {
   Component,
   ElementRef,
+  HostListener,
   inject,
-  QueryList,
   ViewChild,
-  ViewChildren,
 } from '@angular/core';
 import {
-  FormControl,
+  FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import { CommentService } from '../../services/comment/comment.service';
 import { Comment, User } from '../../types';
-import { TagUserModalService } from '../../services/tag-user-modal/tag-user-modal.service';
-import { TagUserModalComponent } from '../tag-user-modal/tag-user-modal.component';
 import { UserService } from '../../services/user/user.service';
+import { NgClass, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-add-comment',
   standalone: true,
-  imports: [ReactiveFormsModule, TagUserModalComponent],
+  imports: [ReactiveFormsModule, NgIf, NgClass],
   templateUrl: './add-comment.component.html',
   styleUrl: './add-comment.component.css',
 })
 export class AddCommentComponent {
-  @ViewChild('commentTxt') commentTxt!: ElementRef;
-  @ViewChildren('tagOption') tagOptions!: QueryList<any>;
-  commentService = inject(CommentService);
-  tagUserModalService = inject(TagUserModalService);
+  @ViewChild('inputField') private inputField!: ElementRef;
+  public commentForm: FormGroup;
   userService = inject(UserService);
-  commentForm = new FormGroup({
-    body: new FormControl('', Validators.required),
-  });
+  commentService = inject(CommentService);
+  isModalOpen: boolean = false;
   users: User[] = [];
-
-  constructor() {
+  filteredUsers: User[] = [];
+  constructor(private fb: FormBuilder) {
     this.userService.getUserData().then((userData) => {
+      // we want to always have a copy of all users so we can reset
       this.users = userData;
+      this.filteredUsers = this.users;
     });
+    this.commentForm = this.fb.group({
+      textInput: ['', Validators.required],
+    });
+
+    this.commentForm
+      .get('textInput')
+      ?.valueChanges.subscribe((newValue: string) => {
+        const strToArray = newValue.split('@');
+        if (strToArray.length > 1) {
+          const lastMention = strToArray[strToArray.length - 1];
+          // Keep modal closed if user has moved on from typing name
+          if (!lastMention.includes(' ')) {
+            this.getFilteredUsers(lastMention);
+            this.isModalOpen = true;
+          }
+        } else {
+          this.isModalOpen = false;
+        }
+      });
   }
 
   addTaggedUserToComment(user: User) {
-    const currentCommentBody = this.commentForm.value.body;
-    const updatedCommentBody = `${currentCommentBody}${user.name}`;
+    const currentCommentTextInput = this.commentForm.value.textInput;
+    const updatedCommentTextInput = `${currentCommentTextInput}${user.name} `;
     this.commentForm.setValue({
-      body: updatedCommentBody,
+      textInput: updatedCommentTextInput,
     });
-    this.tagUserModalService.close();
-    this.commentTxt.nativeElement.focus();
+    this.filteredUsers = this.users;
+    // Focus on textarea after we add a user to the field
+    this.inputField.nativeElement.focus();
+    this.isModalOpen = false;
   }
 
   handleCommentFormSubmit() {
@@ -58,38 +76,25 @@ export class AddCommentComponent {
       userID: this.commentService.generateId(),
       userName: 'Meron',
       date: new Date(),
-      body: this.commentForm.value.body!,
+      textInput: this.commentForm.value.textInput!,
     };
     this.commentService.postComment(comment);
-    this.commentForm.reset();
-  }
-
-  displayTagUserModal($event: KeyboardEvent) {
-    // we need to call setTimeout here to append the callback function to the end of the event queue to ensure textarea dom element adds '@'
-    setTimeout(() => {
-      if ($event.key === '@') {
-        this.tagUserModalService.open('modal1');
-        this.tagOptions.toArray()[0].nativeElement.focus();
-      }
+    this.commentForm.setValue({
+      textInput: '',
     });
   }
 
-  onKeydown($event: KeyboardEvent, index: number, user: User) {
-    // we need to call setTimeout here to append the callback function to the end of the event queue to ensure 'Enter' keydown event does not jump to next line in textarea
-    setTimeout(() => {
-      if ($event.key === 'ArrowDown') {
-        this.focusElement(index + 1);
-      } else if ($event.key === 'ArrowUp') {
-        this.focusElement(index - 1);
-      } else if ($event.key === 'Enter') {
-        this.addTaggedUserToComment(user);
-      }
-    });
-  }
-
-  focusElement(index: number) {
-    if (index >= 0 && index < this.users.length) {
-      this.tagOptions.toArray()[index].nativeElement.focus();
+  @HostListener('document:click', ['$event'])
+  handleClick($event: MouseEvent) {
+    const target = $event.target as HTMLElement;
+    if (!target.parentElement?.classList.contains('modal-body')) {
+      this.isModalOpen = false;
     }
+  }
+
+  getFilteredUsers(str: string) {
+    this.filteredUsers = this.users.filter((user) => {
+      return user.name.toLowerCase().startsWith(str.toLowerCase());
+    });
   }
 }

@@ -8,5 +8,5 @@ export interface Comment {
   userID: number;
   userName: string;
   date: Date;
-  body: string;
+  textInput: string;
 }

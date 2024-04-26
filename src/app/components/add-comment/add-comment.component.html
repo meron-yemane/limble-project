@@ -1,16 +1,21 @@
-<section class="add-comment-section">
+<div class="add-comment-section">
   <hr />
   <h3>Add Comment</h3>
   <hr />
-  <form name="commentForm" [formGroup]="commentForm" (ngSubmit)="handleCommentFormSubmit()" class="form-container">
+  <form [formGroup]="commentForm" (ngSubmit)="handleCommentFormSubmit()">
     <label for="comment">Please enter in a comment.</label>
-    <app-tag-user-modal id="modal1">
-        @for (user of users; track user.userID; let idx = $index) {
-          <li #tagOption id="index-{{idx}}" (keydown)="onKeydown($event, idx, user)" tabindex="0" (click)="addTaggedUserToComment(user)">{{user.name}}</li>
-        }
-    </app-tag-user-modal>
-    <textarea #commentTxt id="comment" formControlName="body" (keydown.enter)="this.commentForm.value.body?.trim()?.length !== 0 && handleCommentFormSubmit()" (keydown)="displayTagUserModal($event)">
-    </textarea>
-    <button type="submit" [disabled]="this.commentForm.value.body?.trim()?.length === 0">Submit</button>
+    <section class="modal">
+      <div *ngIf="isModalOpen && filteredUsers.length > 0" class="modal-container"> <!--    Hide the modal if filtered users is empty    -->
+        <ul class="modal-body">
+          @for (user of filteredUsers; track user.userID) {
+            <li (click)="addTaggedUserToComment(user)">{{user.name}}</li>
+          }
+        </ul>
+      </div>
+    </section>
+    <div class="form-input">
+      <textarea #inputField id="comment" type="text" formControlName="textInput"></textarea>
+      <button type="submit" [disabled]="this.commentForm.invalid">Submit</button>
+    </div>
   </form>
-</section>
+</div>

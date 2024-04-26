@@ -13,14 +13,11 @@ hr {
   background-color: lightgrey;
 }
 
-label {
-  margin-bottom: 10px;
-}
-
-.form-container {
+.form-input {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 600px;
+  margin-top: 10px;
 }
 
 button {
@@ -36,4 +33,41 @@ button:hover {
 
 .add-comment-section {
   margin-top: 50px;
+}
+
+.modal {
+  position: relative;
+}
+
+.modal-container {
+  z-index: 100000;
+  overflow: auto;
+  height: 160px;
+  position: absolute;
+  border: 1px solid lightgrey;
+  border-radius: 3px;
+  background-color: white;
+  width: 300px;
+  bottom: 0;
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
+  padding: 1px;
+}
+
+.modal-body {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.modal-body li {
+  font-size: 15px;
+  padding: 10px 10px;
+  border-top: solid 1px rgb(202, 202, 202);
+}
+
+.modal-body li:hover {
+  cursor: pointer;
+  /*TODO: browser specific, need to investigate focus outline behavior on other browsers; overwrite only occurs for chrome*/
+  outline: 5px auto Highlight;
+  outline: 5px auto -webkit-focus-ring-color;
 }
