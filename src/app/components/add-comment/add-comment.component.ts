@@ -46,9 +46,14 @@ export class AddCommentComponent {
       ?.valueChanges.subscribe((newValue: string) => {
         const strToArray = newValue.split('@');
         if (strToArray.length > 1) {
-          const lastMention = strToArray[strToArray.length - 1];
+          const textPrecedingLastMention = strToArray[strToArray.length - 2];
           // Keep modal closed if user has moved on from typing name
-          if (!lastMention.includes(' ')) {
+          if (
+            textPrecedingLastMention[textPrecedingLastMention.length - 1] ===
+              ' ' ||
+            textPrecedingLastMention.length === 0
+          ) {
+            const lastMention = strToArray[strToArray.length - 1];
             this.getFilteredUsers(lastMention);
             this.isModalOpen = true;
           }
