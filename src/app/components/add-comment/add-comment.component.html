@@ -5,13 +5,15 @@
   <form [formGroup]="commentForm" (ngSubmit)="handleCommentFormSubmit()">
     <label for="comment">Please enter in a comment.</label>
     <section class="modal">
-      <div *ngIf="isModalOpen && filteredUsers.length > 0" class="modal-container"> <!--    Hide the modal if filtered users is empty    -->
-        <ul class="modal-body">
-          @for (user of filteredUsers; track user.userID) {
-            <li (click)="addTaggedUserToComment(user)">{{user.name}}</li>
-          }
-        </ul>
-      </div>
+      @if (isModalOpen && filteredUsers.length > 0) {     <!--    Hide the modal if filtered users is empty    -->
+        <div class="modal-container">
+          <ul class="modal-body">
+            @for (user of filteredUsers; track user.userID) {
+              <li (click)="addTaggedUserToComment(user)">{{user.name}}</li>
+            }
+          </ul>
+        </div>
+      }
     </section>
     <div class="form-input">
       <textarea #inputField id="comment" type="text" formControlName="textInput"></textarea>

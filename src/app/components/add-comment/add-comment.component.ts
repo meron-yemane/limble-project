@@ -14,12 +14,12 @@ import {
 import { CommentService } from '../../services/comment/comment.service';
 import { Comment, User } from '../../types';
 import { UserService } from '../../services/user/user.service';
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-add-comment',
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf, NgClass],
+  imports: [ReactiveFormsModule, NgClass],
   templateUrl: './add-comment.component.html',
   styleUrl: './add-comment.component.css',
 })
